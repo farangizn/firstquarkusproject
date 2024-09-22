@@ -2,6 +2,7 @@ package org.example.service;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import org.example.dto.UserInputDTO;
 import org.example.entity.User;
 import org.example.interfaces.UserService;
 import org.example.repository.UserRepository;
@@ -35,10 +36,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void update(User existingUser, User updatedUser) {
-        existingUser.setName(updatedUser.getName());
-        existingUser.setUsername(updatedUser.getUsername());
-        existingUser.setEmail(updatedUser.getEmail());
+    public void update(User existingUser, UserInputDTO userInputDTO) {
+        if (userInputDTO.getName() != null) existingUser.setName(userInputDTO.getName());
+        if (userInputDTO.getUsername() != null) existingUser.setUsername(userInputDTO.getUsername());
+        if (userInputDTO.getEmail() != null) existingUser.setEmail(userInputDTO.getEmail());
         userRepository.persist(existingUser);
+    }
+
+    @Override
+    public Boolean deleteById(Long id) {
+        return userRepository.deleteById(id);
     }
 }

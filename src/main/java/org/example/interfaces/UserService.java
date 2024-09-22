@@ -1,5 +1,6 @@
 package org.example.interfaces;
 
+import org.example.dto.UserInputDTO;
 import org.example.entity.User;
 
 import java.util.List;
@@ -12,5 +13,7 @@ public interface UserService {
 
     Optional<User> findById(Long id);
 
-    void update(User existingUserOpt, User updatedUser);
+    void update(User existingUserOpt, UserInputDTO updatedUser);
+
+    Boolean deleteById(Long id);
 }

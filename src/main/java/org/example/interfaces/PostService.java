@@ -1,5 +1,6 @@
 package org.example.interfaces;
 
+import org.example.dto.PostInputPTO;
 import org.example.entity.Post;
 
 import java.util.List;
@@ -13,8 +14,13 @@ public interface PostService {
 
     Post save(Post post);
 
-    void update(Post post);
+    void update(Post post, PostInputPTO postInputPTO);
 
-    boolean deleteById(Long id);
+    Boolean deleteById(Long id);
 
+    List<Post> findAllByUserId(Long userId);
+
+    void deleteAllByUserId(Long userId);
+
+    Post save(PostInputPTO post);
 }

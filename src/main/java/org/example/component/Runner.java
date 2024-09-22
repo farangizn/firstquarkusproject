@@ -19,38 +19,47 @@ public class Runner {
 
     @PostConstruct
     public void init() {
-        // Create and persist mock users using builder pattern
-        User user1 = User.builder()
-                .name("John Doe")
-                .username("johndoe")
-                .email("john.doe@example.com")
-                .build();
+        try {
+            System.out.println("Runner initialization started...");
 
-        User user2 = User.builder()
-                .name("Jane Smith")
-                .username("janesmith")
-                .email("jane.smith@example.com")
-                .build();
+            // Create and persist mock users using builder pattern
+            User user1 = User.builder()
+                    .name("John Doe")
+                    .username("johndoe")
+                    .email("john.doe@example.com")
+                    .build();
 
-        // Persist users
-        userService.save(user1);
-        userService.save(user2);
+            User user2 = User.builder()
+                    .name("Jane Smith")
+                    .username("janesmith")
+                    .email("jane.smith@example.com")
+                    .build();
 
-        // Create and persist mock posts using builder pattern
-        Post post1 = Post.builder()
-                .title("Understanding Quarkus")
-                .body("A deep dive into Quarkus and its benefits for microservices.")
-                .user(user1)
-                .build();
+            // Persist users
+            userService.save(user1);
+            userService.save(user2);
 
-        Post post2 = Post.builder()
-                .title("Spring Boot vs. Quarkus")
-                .body("Comparing Spring Boot and Quarkus for Java backend development.")
-                .user(user2)
-                .build();
+            // Create and persist mock posts using builder pattern
+            Post post1 = Post.builder()
+                    .title("Understanding Quarkus")
+                    .body("A deep dive into Quarkus and its benefits for microservices.")
+                    .user(user1)
+                    .build();
 
-        // Persist posts
-        postService.save(post1);
-        postService.save(post2);
+            Post post2 = Post.builder()
+                    .title("Spring Boot vs. Quarkus")
+                    .body("Comparing Spring Boot and Quarkus for Java backend development.")
+                    .user(user2)
+                    .build();
+
+            // Persist posts
+            postService.save(post1);
+            postService.save(post2);
+
+            System.out.println("Runner initialization completed.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println("An error occurred during Runner initialization: " + e.getMessage());
+        }
     }
 }
