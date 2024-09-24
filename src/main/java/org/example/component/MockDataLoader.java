@@ -30,8 +30,6 @@ public class MockDataLoader {
     }
 
     private boolean isDatabaseGenerationCreate() {
-        // Logic to check if the database generation setting is "create"
-        // You can use a config property to determine this
         return "create".equals(System.getProperty("quarkus.hibernate-orm.database.generation"));
     }
 
@@ -46,7 +44,6 @@ public class MockDataLoader {
         List<User> users = Arrays.asList(user1, user2, user3, user4, user5);
         userRepository.persist(users);
 
-        // Creating 10 Posts (2 per User)
         List<Post> posts = Arrays.asList(
             new Post("Post 1 by Alice", "Content for post 1", user1),
             new Post("Post 2 by Alice", "Content for post 2", user1),

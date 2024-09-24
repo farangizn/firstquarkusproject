@@ -22,7 +22,6 @@ public class Runner {
         try {
             System.out.println("Runner initialization started...");
 
-            // Create and persist mock users using builder pattern
             User user1 = User.builder()
                     .name("John Doe")
                     .username("johndoe")
@@ -35,11 +34,9 @@ public class Runner {
                     .email("jane.smith@example.com")
                     .build();
 
-            // Persist users
             userService.save(user1);
             userService.save(user2);
 
-            // Create and persist mock posts using builder pattern
             Post post1 = Post.builder()
                     .title("Understanding Quarkus")
                     .body("A deep dive into Quarkus and its benefits for microservices.")
