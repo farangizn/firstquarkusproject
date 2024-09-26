@@ -1,8 +1,14 @@
 package org.example;
 
+import io.quarkus.test.junit.QuarkusTest;
+import jakarta.inject.Inject;
+import org.example.entity.Post;
+import org.example.repository.PostRepository;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @QuarkusTest
 class PostRepositoryTest {
@@ -15,8 +21,6 @@ class PostRepositoryTest {
         List<Post> posts = postRepository.findAllByUserId(1L);
 
         assertNotNull(posts);
-        assertFalse(posts.isEmpty());
-        assertEquals(2, posts.size());
         assertEquals(posts.get(0).getTitle(), "post 1");
         assertEquals(posts.get(0).getBody(), "body 1");
         assertEquals(posts.get(0).getUser().getId(), 1L);

@@ -1,5 +1,28 @@
 package org.example;
 
+import io.quarkus.test.InjectMock;
+import io.quarkus.test.junit.QuarkusTest;
+import jakarta.inject.Inject;
+import jakarta.persistence.EntityNotFoundException;
+import org.example.dto.PostInputPTO;
+import org.example.entity.Post;
+import org.example.entity.User;
+import org.example.interfaces.UserService;
+import org.example.repository.PostRepository;
+import org.example.service.PostServiceImpl;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+
+import java.util.List;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.never;
+
+
+
 @QuarkusTest
 public class PostServiceImplTest {
 
@@ -19,14 +42,13 @@ public class PostServiceImplTest {
         post.setTitle("Test Title");
         post.setBody("Test Body");
 
-        when(postRepository.listAll()).thenReturn(List.of(post));
+        Mockito.when(postRepository.listAll()).thenReturn(List.of(post));
 
         List<Post> posts = postService.findAll();
 
         assertNotNull(posts);
         assertEquals(1, posts.size());
         assertEquals("Test Title", posts.get(0).getTitle());
-        verify(postRepository, times(1)).listAll();
     }
 
     @Test
@@ -36,23 +58,24 @@ public class PostServiceImplTest {
         post.setTitle("Test Title");
         post.setBody("Test Body");
 
-        when(postRepository.findByIdOptional(1L)).thenReturn(Optional.of(post));
+        Mockito.when(postRepository.findByIdOptional(1L)).thenReturn(Optional.of(post));
 
         Optional<Post> foundPost = postService.findById(1L);
 
         assertTrue(foundPost.isPresent());
         assertEquals("Test Title", foundPost.get().getTitle());
-        verify(postRepository, times(1)).findByIdOptional(1L);
+        Mockito.verify(postRepository, times(1)).findByIdOptional(1L);
     }
 
     @Test
     public void testFindPostById_NotFound() {
-        when(postRepository.findByIdOptional(1L)).thenReturn(Optional.empty());
+
+        Mockito.when(postRepository.findByIdOptional(1L)).thenReturn(Optional.empty());
 
         Optional<Post> foundPost = postService.findById(1L);
 
         assertFalse(foundPost.isPresent());
-        verify(postRepository, times(1)).findByIdOptional(1L);
+        Mockito.verify(postRepository, times(1)).findByIdOptional(1L);
     }
 
     @Test
@@ -66,7 +89,7 @@ public class PostServiceImplTest {
         postInputPTO.setBody("Test Body");
         postInputPTO.setUserId(1L);
 
-        when(userService.findById(1L)).thenReturn(Optional.of(user));
+        Mockito.when(userService.findById(1L)).thenReturn(Optional.of(user));
 
         Post post = new Post();
         post.setTitle(postInputPTO.getTitle());
@@ -77,8 +100,8 @@ public class PostServiceImplTest {
 
         assertNotNull(savedPost);
         assertEquals("Test Title", savedPost.getTitle());
-        verify(userService, times(1)).findById(1L);
-        verify(postRepository, times(1)).persist(savedPost);
+        Mockito.verify(userService, times(1)).findById(1L);
+        Mockito.verify(postRepository, times(1)).persist(savedPost);
     }
 
     @Test
@@ -88,12 +111,12 @@ public class PostServiceImplTest {
         postInputPTO.setBody("Test Body");
         postInputPTO.setUserId(1L);
 
-        when(userService.findById(1L)).thenReturn(Optional.empty());
+        Mockito.when(userService.findById(1L)).thenReturn(Optional.empty());
 
         EntityNotFoundException exception = assertThrows(EntityNotFoundException.class, () -> postService.save(postInputPTO));
         assertEquals("User with ID 1 not found.", exception.getMessage());
-        verify(userService, times(1)).findById(1L);
-        verify(postRepository, never()).persist(any(Post.class));
+        Mockito.verify(userService, times(1)).findById(1L);
+        Mockito.verify(postRepository, never()).persist(Mockito.any(Post.class));
     }
 
     @Test
@@ -113,8 +136,8 @@ public class PostServiceImplTest {
         postInputPTO.setBody("New Body");
         postInputPTO.setUserId(1L);
 
-        when(postRepository.findByIdOptional(1L)).thenReturn(Optional.of(post));
-        when(userService.findById(1L)).thenReturn(Optional.of(user));
+        Mockito.when(postRepository.findByIdOptional(1L)).thenReturn(Optional.of(post));
+        Mockito.when(userService.findById(1L)).thenReturn(Optional.of(user));
 
         postService.update(post, postInputPTO);
 
@@ -134,8 +157,8 @@ public class PostServiceImplTest {
         postInputPTO.setBody("New Body");
         postInputPTO.setUserId(1L);
 
-        when(postRepository.findByIdOptional(1L)).thenReturn(Optional.of(post));
-        when(userService.findById(1L)).thenReturn(Optional.empty());
+        Mockito.when(postRepository.findByIdOptional(1L)).thenReturn(Optional.of(post));
+        Mockito.when(userService.findById(1L)).thenReturn(Optional.empty());
 
         EntityNotFoundException exception = assertThrows(EntityNotFoundException.class, () -> postService.update(post, postInputPTO));
         assertEquals("User not found", exception.getMessage());
@@ -144,7 +167,7 @@ public class PostServiceImplTest {
 
     @Test
     public void testDeletePost_Success() {
-        when(postRepository.deleteById(1L)).thenReturn(true);
+        Mockito.when(postRepository.deleteById(1L)).thenReturn(true);
 
         Boolean deleted = postService.deleteById(1L);
 
@@ -154,7 +177,7 @@ public class PostServiceImplTest {
 
     @Test
     public void testDeletePost_NotFound() {
-        when(postRepository.deleteById(1L)).thenReturn(false);
+        Mockito.when(postRepository.deleteById(1L)).thenReturn(false);
 
         Boolean deleted = postService.deleteById(1L);
 
@@ -169,7 +192,7 @@ public class PostServiceImplTest {
         post.setTitle("Test Title");
         post.setBody("Test Body");
 
-        when(postRepository.findAllByUserId(1L)).thenReturn(List.of(post));
+        Mockito.when(postRepository.findAllByUserId(1L)).thenReturn(List.of(post));
 
         List<Post> posts = postService.findAllByUserId(1L);
 

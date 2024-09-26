@@ -1,5 +1,31 @@
 package org.example;
 
+import io.quarkus.test.InjectMock;
+import io.quarkus.test.junit.QuarkusTest;
+import jakarta.ws.rs.core.Response;
+import org.example.controller.PostResource;
+import org.example.dto.PostDTO;
+import org.example.dto.PostInputPTO;
+import org.example.entity.Post;
+import org.example.repository.PostRepository;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentMatchers;
+import org.mockito.Mockito;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.never;
+
+import static org.mockito.Mockito.when;
+
+
+import static org.junit.jupiter.api.Assertions.*;
+
 @QuarkusTest
 class PostResourceTest {
 
@@ -29,7 +55,7 @@ class PostResourceTest {
     void getAllPosts() {
         List<Post> posts = new ArrayList<>();
         posts.add(post);
-        Mockito.when(postRepository.listAll()).thenReturn(posts);
+        when(postRepository.listAll()).thenReturn(posts);
         Response response = postResource.getAllPosts();
         assertNotNull(response);
         assertEquals(200, response.getStatus());
