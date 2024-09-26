@@ -33,7 +33,7 @@ public class PostResource {
     public Response getAllPosts() {
         return Response.ok(postService.findAll().stream().map(post -> {
             PostDTO postDTO = postMapper.toDto(post);
-            postDTO.setUserId(post.getUser().getId());
+            postDTO.setUserId(post.getUser().id);
             return postDTO;
         }).toList()).build();
     }
@@ -44,7 +44,7 @@ public class PostResource {
         Optional<Post> post = postService.findById(id);
         return post.map(p -> {
             PostDTO postDTO = postMapper.toDto(p);
-            postDTO.setUserId(p.getUser().getId());
+            postDTO.setUserId(p.getUser().id);
             return Response.ok(postDTO);
         }).orElseGet(() -> Response.status(Response.Status.NOT_FOUND)
                         .entity(new ErrorResponse("Post not found for ID: " + id))).build();
@@ -106,7 +106,7 @@ public class PostResource {
     public Response getPostsByUserId(@PathParam("userId") Long userId) {
         List<PostDTO> posts = postService.findAllByUserId(userId).stream().map(post -> {
             PostDTO postDTO = postMapper.toDto(post);
-            postDTO.setUserId(post.getUser().getId());
+            postDTO.setUserId(post.getUser().id);
             return postDTO;
         }).toList();
         return Response.ok(posts).build();

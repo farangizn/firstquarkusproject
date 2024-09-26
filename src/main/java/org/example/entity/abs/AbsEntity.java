@@ -6,11 +6,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import lombok.Data;
 
-@Data
-@MappedSuperclass
-public abstract class AbsEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-}
+//@Data
+//@MappedSuperclass
+//public abstract class AbsEntity {
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    private Long id;
+//
+//}

@@ -74,7 +74,7 @@ class UserResourceTest {
 
         assertNotNull(userDTOS);
         assertEquals(userDTOS.size(), 1);
-        assertEquals(userDTOS.get(0).getId(), user.getId());
+        assertEquals(userDTOS.get(0).getId(), user.id);
         assertEquals(userDTOS.get(0).getUsername(), user.getUsername());
         assertEquals(userDTOS.get(0).getEmail(), user.getEmail());
     }
@@ -92,7 +92,7 @@ class UserResourceTest {
         UserDTO entity = (UserDTO) response.getEntity();
 
         assertNotNull(entity);
-        assertEquals(entity.getId(), user.getId());
+        assertEquals(entity.getId(), user.id);
         assertEquals(entity.getUsername(), user.getUsername());
         assertEquals(entity.getEmail(), user.getEmail());
 

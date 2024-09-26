@@ -23,10 +23,10 @@ class PostRepositoryTest {
         assertNotNull(posts);
         assertEquals(posts.get(0).getTitle(), "post 1");
         assertEquals(posts.get(0).getBody(), "body 1");
-        assertEquals(posts.get(0).getUser().getId(), 1L);
+        assertEquals(posts.get(0).getUser().id, 1L);
         assertEquals(posts.get(1).getTitle(), "post 2");
         assertEquals(posts.get(1).getBody(), "body 2");
-        assertEquals(posts.get(1).getUser().getId(), 1L);
+        assertEquals(posts.get(1).getUser().id, 1L);
     }
 
     @Test

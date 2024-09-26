@@ -1,13 +1,11 @@
 package org.example.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.example.entity.abs.AbsEntity;
 
 @Data
 @AllArgsConstructor
@@ -15,12 +13,16 @@ import org.example.entity.abs.AbsEntity;
 @Builder
 @Entity
 @Table(name = "posts")
-public class Post extends AbsEntity {
+public class Post extends PanacheEntity {
 
     private String title;
     private String body;
 
     @ManyToOne
     private User user;
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
 }
