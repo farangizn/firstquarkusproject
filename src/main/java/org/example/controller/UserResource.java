@@ -1,5 +1,6 @@
 package org.example.controller;
 
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
@@ -20,6 +21,7 @@ import java.util.Optional;
 @Path("/users")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
+@ApplicationScoped
 public class UserResource {
 
     private final UserService userService;
