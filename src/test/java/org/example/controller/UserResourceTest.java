@@ -1,9 +1,8 @@
-package org.example;
+package org.example.controller;
 
 import io.quarkus.test.InjectMock;
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.ws.rs.core.Response;
-import org.example.controller.UserResource;
 import org.example.dto.UserDTO;
 import org.example.dto.UserInputDTO;
 import org.example.entity.User;
@@ -24,10 +23,7 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.when;
 import static org.mockito.ArgumentMatchers.any;
 import static io.restassured.RestAssured.when;
 import static org.hamcrest.Matchers.is;

@@ -1,9 +1,8 @@
-package org.example;
+package org.example.controller;
 
 import io.quarkus.test.InjectMock;
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.ws.rs.core.Response;
-import org.example.controller.PostResource;
 import org.example.dto.PostDTO;
 import org.example.dto.PostInputPTO;
 import org.example.entity.Post;
@@ -16,10 +15,6 @@ import org.mockito.Mockito;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.never;
 
 import static org.mockito.Mockito.when;
 

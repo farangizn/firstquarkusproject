@@ -33,7 +33,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Optional<Post> findById(Long id) {
-        return Optional.ofNullable(postRepository.findById(id));
+        return postRepository.findByIdOptional(id);
     }
 
     @Override

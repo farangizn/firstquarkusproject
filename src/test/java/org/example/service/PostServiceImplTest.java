@@ -1,4 +1,4 @@
-package org.example;
+package org.example.service;
 
 import io.quarkus.test.InjectMock;
 import io.quarkus.test.junit.QuarkusTest;
@@ -9,7 +9,6 @@ import org.example.entity.Post;
 import org.example.entity.User;
 import org.example.interfaces.UserService;
 import org.example.repository.PostRepository;
-import org.example.service.PostServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 

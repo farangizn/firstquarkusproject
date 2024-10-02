@@ -1,9 +1,9 @@
-package org.example;
+package org.example.repository;
 
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 import org.example.entity.Post;
-import org.example.repository.PostRepository;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -35,7 +35,9 @@ class PostRepositoryTest {
         assertNotNull(posts);
         assertEquals(0, posts.size());
     }
+
     @Test
+    @Transactional
     void deleteAllByUserId() {
         postRepository.deleteAllByUserId(1L);
         assertEquals(0, postRepository.findAllByUserId(1L).size());
